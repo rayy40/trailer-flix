@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+*::-webkit-scrollbar {
+  width: 0.6em;
+}
+
+*::-webkit-scrollbar-track {
+  background: #181818;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: hsla(0, 0%, 76.5%, 0.4392156862745098);
+  border-radius: 4px;
+}
+
+body {
+  background-color: #121212;
+}
+
+.loading-container {
+  width: 100%;
+  background-color: #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@import "../Pages/HomePage/HomePage";
+@import "../Pages/MoviesPage/MoviesPage";
+@import "../Pages/TvPage/TvPage";
+@import "../Pages/DetailPage/DetailPage";
+@import "../Pages/TrailerPage/TrailerPage";
+@import "../Components/Header/_Header";
+@import "../Components/Loading/Loading";
+@import "../Pages/SeeAllPage/SeeAllPage";

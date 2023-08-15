@@ -1,0 +1,303 @@
+@keyframes animate {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+body {
+  position: relative;
+}
+
+.row-outline {
+  width: 100%;
+  transition: all 200ms ease;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 2.5em);
+    align-items: flex-end;
+    padding: 0 1.25em;
+    .title {
+      display: flex;
+      gap: 1em;
+      align-items: flex-end;
+      color: white;
+      .explore-all {
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+        cursor: pointer;
+        color: #c3c3c3;
+        p {
+          font-size: 0.75rem;
+        }
+        i {
+          font-size: 0.75rem;
+        }
+      }
+      h3 {
+        font-weight: 400;
+        font-size: calc(0.35vw + 0.85rem);
+      }
+    }
+    &__indicators {
+      display: none;
+      transition: all 400ms ease 100ms !important;
+      button {
+        background-color: #aaa;
+        height: 0.3em;
+        width: 1.25em;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        margin-right: 0.2em;
+        &:last-child {
+          margin-right: 0;
+        }
+        &.active {
+          transition: 0.4s ease-in-out all;
+          background-color: white;
+        }
+        &:hover {
+          transition: 0.4s ease-in-out all;
+          background-color: white;
+        }
+      }
+    }
+  }
+  &__carousel--outline {
+    display: flex;
+    position: relative;
+    align-items: center;
+    &:hover .slider-btn {
+      opacity: 1;
+    }
+    .slider-btn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      height: 100%;
+      width: 3.5em;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 500;
+      transition: 0.2s ease all;
+      background: rgba(20, 20, 20, 0.7);
+      &:hover i {
+        font-size: 1.45vw;
+      }
+      i {
+        font-size: 1vw;
+        transition: all 300ms ease;
+        color: white;
+      }
+    }
+    .btn-left {
+      left: 0;
+    }
+    .btn-right {
+      right: 0;
+    }
+    .row-outline__carousel--container {
+      width: 100%;
+      padding: 1.25em 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .row-outline__carousel {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0.5em;
+        & > * {
+          flex: 0 0 16%;
+        }
+        &:first-child {
+          margin-left: 1.25em;
+        }
+        &__item {
+          position: relative;
+          border-radius: 2.5px;
+          transition: all 500ms;
+          cursor: pointer;
+          min-width: 230px;
+          min-height: 140px;
+          height: calc(5.75vw + 50px);
+          img {
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            border-radius: inherit;
+            width: 100%;
+            object-fit: cover;
+          }
+          .img-loading {
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+            position: absolute;
+            z-index: 99999;
+            inset: 0;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-25px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .row-outline {
+    .title .explore-all {
+      color: white;
+      opacity: 0;
+      transition: all 0.2s ease;
+      p {
+        display: none;
+      }
+    }
+    &:hover {
+      .title .explore-all {
+        cursor: pointer;
+        opacity: 1;
+      }
+    }
+    .explore-all:hover p {
+      display: block;
+    }
+    &:hover &__header__indicators {
+      display: block;
+    }
+    &__carousel {
+      .item--active {
+        border: 3px solid white;
+      }
+      &:hover &__item,
+      &:focus-within &__item {
+        transform: translateX(-12.5%);
+      }
+      &__item:hover ~ &__item {
+        transform: translateX(12.5%);
+      }
+      &:hover &__item img {
+        transition: 0.5s ease;
+        opacity: 0.2;
+      }
+      &__item:hover img {
+        transition: 0.5s ease;
+        opacity: 0.7 !important;
+      }
+      &__item:hover &__item__details {
+        display: block;
+        transition: none;
+        animation: animate 0.75s forwards;
+      }
+    }
+    &__carousel &__carousel__item:hover {
+      transform: scale(1.25);
+      z-index: 1;
+    }
+    &__carousel--container {
+      .row-outline__carousel {
+        &__item {
+          &__details {
+            color: white;
+            display: none;
+            position: absolute;
+            opacity: 1;
+            margin: 0 0.75em;
+            bottom: 0.75em;
+            z-index: 9;
+            h5 {
+              font-size: calc(0.5vw + 0.35rem);
+              font-weight: 500;
+            }
+            &__btn-container {
+              display: flex;
+              gap: 0.45em;
+              margin-bottom: 0.4em;
+              .details-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                color: white;
+                width: 1.85em;
+                height: 1.85em;
+                background: inherit;
+                border-radius: 50%;
+                border: 2px solid white;
+                outline: none;
+                transition: all 300ms ease;
+                i {
+                  font-size: 90%;
+                }
+                &:hover {
+                  background-color: white;
+                  color: black;
+                }
+              }
+            }
+            &__genre {
+              display: flex;
+              gap: 0.35em;
+              margin-top: 0.125em;
+              p {
+                font-size: calc(0.35vw + 0.35rem);
+                font-weight: 300;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .row-outline {
+    &__header {
+      padding: 0 0.65em;
+      width: calc(100% - 1.3em);
+    }
+    &__carousel--outline {
+      .slider-btn {
+        display: none;
+      }
+      .row-outline__carousel--container {
+        padding: 0.4em 0 0.65em;
+        .row-outline__carousel {
+          & > * {
+            flex: 0 0 10.5%;
+          }
+          &:first-child {
+            margin-left: 0.65em;
+          }
+          &__item {
+            transition: none;
+            cursor: none;
+            min-width: 100px;
+          }
+        }
+      }
+    }
+  }
+}

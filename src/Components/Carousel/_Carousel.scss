@@ -1,0 +1,220 @@
+.carousel__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0.75em 0 1.25em;
+  &--modifier {
+    justify-content: space-between !important;
+  }
+  h3 {
+    color: #f5f5f5;
+    font-weight: 300;
+    font-size: calc(0.35vw + 1rem);
+  }
+  i {
+    margin-right: 1em;
+    font-size: calc(0.35vw + 0.7rem);
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    &:first-child {
+      margin-right: 1em;
+    }
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+.carousel__content {
+  margin-top: 0.5em;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1em;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    flex: 0 0 calc(6.5vw + 3.75rem);
+  }
+}
+.carousel__content__box {
+  position: relative;
+  transition: all 500ms ease;
+  width: 100%;
+  aspect-ratio: 1 / 1.5;
+  border-radius: 8px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  &::before {
+    content: " ";
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 8px;
+  }
+  .carousel__content__box__name {
+    position: absolute;
+    padding: 1em;
+    z-index: 1;
+    color: white;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    h3 {
+      font-weight: 300;
+      font-size: calc(0.35vw + 0.8rem);
+    }
+    p {
+      font-weight: 500;
+      color: whitesmoke;
+      font-size: calc(0.3vw + 0.5rem);
+    }
+  }
+}
+
+.episodes__overview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  margin-top: 1.15em;
+  margin-left: 0.25em;
+  max-width: 950px;
+  p {
+    font-size: clamp(0.825rem, calc(0.5vw + 0.525rem), 1.35rem);
+    color: #ddd;
+    line-height: 1.325;
+    &:first-child {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+.episodes--active {
+  border: 2px solid white;
+}
+
+.dropbtn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75em 1.15em;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 7.5px;
+  cursor: pointer;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  &hover .dropbtn {
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+  &:hover .dropdown-content {
+    display: block;
+  }
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #aaa;
+  border-radius: 7.5px;
+  margin-top: 0.05em;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 999999;
+  transition: all 200ms ease;
+  p {
+    color: black;
+    padding: 10px 2px;
+    text-align: center;
+    font-size: 0.825rem;
+    text-decoration: none;
+    display: block;
+    transition: all 20ms ease;
+    &:first-child {
+      border-radius: 7.5px 7.5px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 7.5px 7.5px;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.65);
+    }
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.detail-page-container__similar {
+  .carousel__content__box::before {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.detail-page-container__episodes {
+  .carousel-container {
+    .carousel__header--modifier {
+      justify-content: space-between;
+    }
+    .carousel__content {
+      & > * {
+        flex: 0 0 calc(8.5vw + 10rem);
+      }
+    }
+    .carousel__content__box {
+      aspect-ratio: 16 / 9;
+      cursor: pointer;
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .carousel__header {
+    h3 {
+      font-size: 0.975rem;
+    }
+  }
+  .episodes__overview {
+    margin-left: 0;
+  }
+  .detail-page-container__episodes {
+    .carousel-container {
+      .carousel__header {
+        margin-top: 1.5em;
+      }
+      .carousel__content {
+        & > * {
+          flex: 0 0 calc(8.5vw + 8rem);
+        }
+      }
+      .carousel__content__box {
+        aspect-ratio: 16 / 9;
+      }
+    }
+  }
+  .carousel__content {
+    gap: 0.5em;
+  }
+  .carousel__content__box {
+    &__name {
+      padding: 0.5em !important;
+    }
+  }
+}

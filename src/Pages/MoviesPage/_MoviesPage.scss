@@ -1,0 +1,14 @@
+@import "../../Components/Trending/Trending";
+@import "../../Components/Row/Row";
+
+.movies-page-container {
+  width: 100%;
+  height: 100%;
+  background-color: #121212;
+  &__row-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.75em;
+    gap: 0.75em;
+  }
+}

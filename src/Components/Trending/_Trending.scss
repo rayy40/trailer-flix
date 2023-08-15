@@ -1,0 +1,108 @@
+.trending-container {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  max-height: 1000px;
+  background-color: #121212;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 101%;
+    background: rgba(0, 0, 0, 0)
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.25) 25%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.5) 60%,
+        rgba(0, 0, 0, 0.55) 75%,
+        rgba(0, 0, 0, 0.6) 80%,
+        rgba(18, 18, 18, 0.65) 90%,
+        rgba(18, 18, 18, 1) 99%
+      )
+      repeat 0 0;
+  }
+  &__content {
+    position: absolute;
+    left: 2.5%;
+    z-index: 1;
+    color: white;
+    width: 35%;
+    min-width: 450px;
+    text-align: left;
+    h1 {
+      font-weight: 400;
+      margin: 0.2em 0 0.5em;
+      font-size: clamp(2rem, 3vw, 7.5rem);
+    }
+    p {
+      font-weight: 400;
+      font-size: clamp(0.825rem, calc(0.5vw + 0.525rem), 1.35rem);
+    }
+    .play-btn {
+      margin-top: 1.5em;
+      width: fit-content;
+      border-radius: 12px;
+      border: none transparent;
+      outline: none;
+      padding: 0.875em 1.5em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75em;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 1px solid white;
+      transition: all 0.3s ease;
+      p {
+        font-weight: 500;
+        font-size: 0.925rem;
+      }
+      &:hover {
+        background-color: transparent;
+        color: white;
+      }
+    }
+    &__genre {
+      display: flex;
+      gap: 1.25em;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .trending-container__content {
+    top: 35%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .trending-container {
+    height: 70vh;
+    &__content {
+      bottom: 15%;
+      min-width: 300px;
+      p {
+        font-weight: 300;
+      }
+      .play-btn {
+        padding: 0.75em 1.15em;
+        i {
+          font-size: 0.75rem;
+        }
+        p {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
