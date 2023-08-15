@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function Header() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div className="header-container header-container--bg">
       <div className="header-container__logo">
         <img
-          onClick={() => history.push("/")}
+          onClick={() => navigate("/")}
           src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
           alt=""
         />

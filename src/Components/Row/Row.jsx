@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { findGenreName } from "../../Helpers/findGenreName";
 import { slideLeft, slideRight, setTabs } from "../../Helpers/utilities";
 import RowSkeleton from "../SkeletonLoading/RowSkeleton";
@@ -10,7 +10,7 @@ export default function Row({ title, fetchUrl, genreMovie, genreTv }) {
   const indicatorsRef = useRef();
   const carouselRef = useRef();
   const activeRef = useRef();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
 
   const { data, isLoading } = useQuery(
@@ -28,7 +28,7 @@ export default function Row({ title, fetchUrl, genreMovie, genreTv }) {
       indicatorsRef.current !== undefined &&
         setTabs(carouselRef, indicatorsRef);
     }
-  }, [data]);
+  }, [data, toggle]);
 
   if (isLoading) {
     return <RowSkeleton />;
@@ -40,10 +40,8 @@ export default function Row({ title, fetchUrl, genreMovie, genreTv }) {
           <h3>{title}</h3>
           <div
             onClick={() =>
-              history.push("/seeall", {
-                pageParams: data.data,
-                title: title,
-                url: fetchUrl,
+              navigate("/seeall", {
+                state: { pageParams: data.data, title: title, url: fetchUrl },
               })
             }
             className="explore-all"
@@ -70,7 +68,7 @@ export default function Row({ title, fetchUrl, genreMovie, genreTv }) {
               <div
                 onClick={() => {
                   window.matchMedia("(max-width: 1000px)").matches &&
-                    history.push("/detail", item);
+                    navigate("/detail", { state: item });
                 }}
                 key={id}
                 className="row-outline__carousel__item"
@@ -92,13 +90,13 @@ export default function Row({ title, fetchUrl, genreMovie, genreTv }) {
                   <div className="row-outline__carousel__item__details">
                     <div className="row-outline__carousel__item__details__btn-container">
                       <button
-                        onClick={() => history.push("/trailer", item)}
+                        onClick={() => navigate("/trailer", { state: item })}
                         className="details-btn"
                       >
                         <i className="fas fa-play"></i>
                       </button>
                       <button
-                        onClick={() => history.push("/detail", item)}
+                        onClick={() => navigate("/detail", { state: item })}
                         className="details-btn"
                       >
                         <i className="fas fa-info"></i>

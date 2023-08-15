@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { requests } from "./Api/Requests";
@@ -42,39 +42,55 @@ function App() {
           <ScrollToTop />
           <Header />
           {!isLoadingTv && !isLoadingMovies && (
-            <Switch>
-              <Route path="/" exact>
-                <HomePage
-                  genreMovie={genreMovieList.data.genres}
-                  genreTv={genreTvList.data.genres}
-                />
-              </Route>
-              <Route path="/movies">
-                <MoviesPage
-                  genreMovie={genreMovieList.data.genres}
-                  genreTv={genreTvList.data.genres}
-                />
-              </Route>
-              <Route path="/tv">
-                <TvPage
-                  genreMovie={genreMovieList.data.genres}
-                  genreTv={genreTvList.data.genres}
-                />
-              </Route>
-              <Route path="/detail">
-                <DetailPage
-                  genreMovie={genreMovieList.data.genres}
-                  genreTv={genreTvList.data.genres}
-                />
-              </Route>
-              <Route path="/trailer" component={TrailerPage} />
-              <Route path="/seeAll">
-                <SeeAllPage
-                  genreMovie={genreMovieList.data.genres}
-                  genreTv={genreTvList.data.genres}
-                />
-              </Route>
-            </Switch>
+            <Routes>
+              <Route
+                path="/"
+                exact
+                element={
+                  <HomePage
+                    genreMovie={genreMovieList.data.genres}
+                    genreTv={genreTvList.data.genres}
+                  />
+                }
+              />
+              <Route
+                path="/movies"
+                element={
+                  <MoviesPage
+                    genreMovie={genreMovieList.data.genres}
+                    genreTv={genreTvList.data.genres}
+                  />
+                }
+              />
+              <Route
+                path="/tv"
+                element={
+                  <TvPage
+                    genreMovie={genreMovieList.data.genres}
+                    genreTv={genreTvList.data.genres}
+                  />
+                }
+              />
+              <Route
+                path="/detail"
+                element={
+                  <DetailPage
+                    genreMovie={genreMovieList.data.genres}
+                    genreTv={genreTvList.data.genres}
+                  />
+                }
+              />
+              <Route path="/trailer" element={<TrailerPage />} />
+              <Route
+                path="/seeAll"
+                element={
+                  <SeeAllPage
+                    genreMovie={genreMovieList.data.genres}
+                    genreTv={genreTvList.data.genres}
+                  />
+                }
+              />
+            </Routes>
           )}
         </div>
       </Router>

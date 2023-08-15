@@ -3,14 +3,14 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { requestCast, requests } from "../../Api/Requests";
 import { findGenreName } from "../../Helpers/findGenreName";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import HomePageCarousel from "../../Components/SkeletonLoading/HomePageCarousel";
 import HomePageSkeleton from "../../Components/SkeletonLoading/HomePageSkeleton";
 
 export default function HomePage({ genreMovie, genreTv }) {
   const [randomNumber, setRandomNumber] = useState(0);
   const carouselRef = useRef();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setRandomNumber(Math.floor(Math.random() * 21));
@@ -90,7 +90,7 @@ export default function HomePage({ genreMovie, genreTv }) {
           </div>
           <button
             onClick={() =>
-              history.push("/trailer", data.data.results[randomNumber])
+              navigate("/trailer", { state: data.data.results[randomNumber] })
             }
             className="play-btn"
           >

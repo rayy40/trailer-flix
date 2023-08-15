@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { findGenreName } from "../../Helpers/findGenreName";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import TrendingSkeleton from "../SkeletonLoading/TrendingSkeleton";
 
 export default function Trending({ fetchUrl, genreMovie, genreTv }) {
   const [randomNumber, setRandomNumber] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setRandomNumber(Math.floor(Math.random() * 21));
@@ -34,13 +34,13 @@ export default function Trending({ fetchUrl, genreMovie, genreTv }) {
         style={imgLoaded ? { display: "block" } : { display: "none" }}
         className="trending-background-img"
         src={
-          data.data.results[randomNumber].backdrop_path !== null &&
-          `http://image.tmdb.org/t/p/original//${data.data.results[randomNumber].backdrop_path}`
+          data?.data?.results[randomNumber].backdrop_path !== null &&
+          `http://image.tmdb.org/t/p/original//${data?.data?.results[randomNumber].backdrop_path}`
         }
         alt={
-          data.data.results[randomNumber].title
-            ? data.data.results[randomNumber].title + "-img"
-            : data.data.results[randomNumber].name + "-img"
+          data?.data?.results[randomNumber].title
+            ? data?.data?.results[randomNumber].title + "-img"
+            : data?.data?.results[randomNumber].name + "-img"
         }
         onLoad={() => setImgLoaded(true)}
       />
@@ -50,7 +50,7 @@ export default function Trending({ fetchUrl, genreMovie, genreTv }) {
             {data.data.results[randomNumber].genre_ids.map((genre, id) => (
               <p key={id}>
                 {findGenreName(
-                  data.data.results[randomNumber].media_type === "movie"
+                  data?.data?.results[randomNumber].media_type === "movie"
                     ? genreMovie
                     : genreTv,
                   genre
@@ -59,14 +59,14 @@ export default function Trending({ fetchUrl, genreMovie, genreTv }) {
             ))}
           </div>
           <h1>
-            {data.data.results[randomNumber].title !== undefined
-              ? data.data.results[randomNumber].title
-              : data.data.results[randomNumber].name}
+            {data?.data?.results[randomNumber].title !== undefined
+              ? data?.data?.results[randomNumber].title
+              : data?.data?.results[randomNumber].name}
           </h1>
-          <p>{data.data.results[randomNumber].overview}</p>
+          <p>{data?.data?.results[randomNumber].overview}</p>
           <button
             onClick={() =>
-              history.push("/trailer", data.data.results[randomNumber])
+              navigate("/trailer", { state: data?.data?.results[randomNumber] })
             }
             className="play-btn"
           >

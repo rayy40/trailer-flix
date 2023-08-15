@@ -1,12 +1,12 @@
 import React, { useRef, useCallback } from "react";
-import { useHistory, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useInfiniteQuery } from "react-query";
 import { findGenreName } from "../../Helpers/findGenreName";
 import SeeAllSkeleton from "../../Components/SkeletonLoading/SeeAllSkeleton";
 
 export default function SeeAllPage({ genreMovie, genreTv }) {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const fetchData = async (page = 1) => {
     const response = await fetch(`${location.state.url}&page=${page}`);
@@ -38,6 +38,7 @@ export default function SeeAllPage({ genreMovie, genreTv }) {
       });
       if (node) observer.current.observe(node);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isLoading, hasNextPage]
   );
 
@@ -59,7 +60,7 @@ export default function SeeAllPage({ genreMovie, genreTv }) {
                   <div
                     onClick={() => {
                       window.matchMedia("(max-width: 1000px)").matches &&
-                        history.push("/detail", item);
+                        navigate("/detail", { state: item });
                     }}
                     ref={lastElementRef}
                     key={item.id}
@@ -81,13 +82,15 @@ export default function SeeAllPage({ genreMovie, genreTv }) {
                       <div className="item-box__details">
                         <div className="item-box__details__btn-container">
                           <button
-                            onClick={() => history.push("/trailer", item)}
+                            onClick={() =>
+                              navigate("/trailer", { state: item })
+                            }
                             className="details-btn"
                           >
                             <i className="fas fa-play"></i>
                           </button>
                           <button
-                            onClick={() => history.push("/detail", item)}
+                            onClick={() => navigate("/detail", { state: item })}
                             className="details-btn"
                           >
                             <i className="fas fa-info"></i>
@@ -125,7 +128,7 @@ export default function SeeAllPage({ genreMovie, genreTv }) {
                   <div
                     onClick={() => {
                       window.matchMedia("(max-width: 1000px)").matches &&
-                        history.push("/detail", item);
+                        navigate("/detail", { state: item });
                     }}
                     key={item.id}
                     className="item-box"
@@ -146,13 +149,15 @@ export default function SeeAllPage({ genreMovie, genreTv }) {
                       <div className="item-box__details">
                         <div className="item-box__details__btn-container">
                           <button
-                            onClick={() => history.push("/trailer", item)}
+                            onClick={() =>
+                              navigate("/trailer", { state: item })
+                            }
                             className="details-btn"
                           >
                             <i className="fas fa-play"></i>
                           </button>
                           <button
-                            onClick={() => history.push("/detail", item)}
+                            onClick={() => navigate("/detail", { state: item })}
                             className="details-btn"
                           >
                             <i className="fas fa-info"></i>

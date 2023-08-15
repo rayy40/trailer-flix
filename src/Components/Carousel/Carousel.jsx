@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { requestEpisodes, requestSpecific } from "../../Api/Requests";
 import CarouselSkeleton from "../SkeletonLoading/CarouselSkeleton";
 
@@ -9,7 +9,7 @@ export default function Carousel({ header, fetchData, id }) {
   const carouselRef = useRef();
   const isRequired = header === "Episodes";
   const [seasonNumber, setSeasonNumber] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [episodeNumber, setEpisodeNUmber] = useState(1);
   const { data, isLoading } = useQuery(
     ["data", fetchData],
@@ -137,7 +137,7 @@ export default function Carousel({ header, fetchData, id }) {
           data.data.results.map((item, id) => (
             <div
               style={{ cursor: "pointer" }}
-              onClick={() => history.push("/detail", item)}
+              onClick={() => navigate("/detail", { state: item })}
               key={id}
               className="carousel__content__box"
             >

@@ -4,7 +4,7 @@ import Row from "../../Components/Row/Row";
 import { requests } from "../../Api/Requests";
 
 export default function MoviesPage({ genreMovie, genreTv }) {
-  const API_KEY = "c2ddd421df000578339377f36ea2834c";
+  const API_KEY = process.env.REACT_APP_API_KEY;
   return (
     <div className="movies-page-container">
       <Trending

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   requestCast,
   requestEpisodes,
@@ -11,7 +11,7 @@ import { findGenreName } from "../../Helpers/findGenreName";
 
 export default function DetailPage({ genreMovie, genreTv }) {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
   const [visibility, setVisibility] = useState("cast");
 
@@ -41,8 +41,8 @@ export default function DetailPage({ genreMovie, genreTv }) {
           style={loaded ? { display: "block" } : { display: "none" }}
           className="background-img"
           src={
-            location.state.backdrop_path !== null
-              ? `http://image.tmdb.org/t/p/original//${location.state.backdrop_path}`
+            location?.state?.backdrop_path !== null
+              ? `http://image.tmdb.org/t/p/original//${location?.state?.backdrop_path}`
               : "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=740&q=80"
           }
           alt=""
@@ -52,7 +52,7 @@ export default function DetailPage({ genreMovie, genreTv }) {
           <div className="detail-page-container">
             <div className="detail-page-container__go-back">
               <i
-                onClick={() => history.goBack()}
+                onClick={() => navigate(-1)}
                 className="fas fa-long-arrow-alt-left"
               ></i>
             </div>
@@ -61,14 +61,14 @@ export default function DetailPage({ genreMovie, genreTv }) {
                 <img
                   loading="eager"
                   src={
-                    location.state.poster_path
-                      ? `http://image.tmdb.org/t/p/w500//${location.state.poster_path}`
+                    location?.state?.poster_path
+                      ? `http://image.tmdb.org/t/p/w500//${location?.state?.poster_path}`
                       : "https://images.unsplash.com/photo-1542423348-821c6bb30fe6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80"
                   }
                   alt={
-                    location.state.title
-                      ? location.state.title + "-img"
-                      : location.state.name + "-img"
+                    location?.state?.title
+                      ? location?.state?.title + "-img"
+                      : location?.state?.name + "-img"
                   }
                 />
               </div>
@@ -77,41 +77,43 @@ export default function DetailPage({ genreMovie, genreTv }) {
                 className="detail-page-container__info__overview"
               >
                 <h2>
-                  {location.state.title
-                    ? location.state.title
-                    : location.state.name}
+                  {location?.state?.title
+                    ? location?.state?.title
+                    : location?.state?.name}
                 </h2>
                 <div className="overview--details">
                   <p>
-                    {location.state.release_date
-                      ? location.state.release_date.substring(0, 4)
-                      : location.state.first_air_date.substring(0, 4)}
+                    {location?.state?.release_date
+                      ? location?.state?.release_date.substring(0, 4)
+                      : location?.state?.first_air_date.substring(0, 4)}
                   </p>
-                  {location.state.number_of_seasons && (
+                  {location?.state?.number_of_seasons && (
                     <p>
-                      {location.state.number_of_seasons > 1
-                        ? `${location.state.number_of_seasons} seasons`
-                        : `${location.state.number_of_seasons} season`}
+                      {location?.state?.number_of_seasons > 1
+                        ? `${location?.state?.number_of_seasons} seasons`
+                        : `${location?.state?.number_of_seasons} season`}
                     </p>
                   )}
-                  <p>{location.state.vote_average}</p>
-                  {location.state.adult && <p>18+</p>}
+                  <p>{location?.state?.vote_average}</p>
+                  {location?.state?.adult && <p>18+</p>}
                 </div>
                 <div className="genre">
-                  {location.state.genre_ids.map((genre, id) => (
+                  {location?.state?.genre_ids.map((genre, id) => (
                     <p key={id}>
                       {findGenreName(
-                        location.state.title ? genreMovie : genreTv,
+                        location?.state?.title ? genreMovie : genreTv,
                         genre
                       )}
                     </p>
                   ))}
                 </div>
                 {window.matchMedia("(min-width: 1000px)").matches && (
-                  <p className="overview">{location.state.overview}</p>
+                  <p className="overview">{location?.state?.overview}</p>
                 )}
                 <button
-                  onClick={() => history.push("/trailer", location.state)}
+                  onClick={() =>
+                    navigate("/trailer", { state: location?.state })
+                  }
                   className="play-btn"
                 >
                   <i className="fas fa-play"></i>
@@ -122,7 +124,7 @@ export default function DetailPage({ genreMovie, genreTv }) {
             {window.matchMedia("(max-width: 1000px)").matches && (
               <div className="plot-summary">
                 <p>Plot Summary : </p>
-                <p className="overview">{location.state.overview}</p>
+                <p className="overview">{location?.state?.overview}</p>
               </div>
             )}
             <div className="detail-page-container__switch-tabs">
@@ -131,7 +133,7 @@ export default function DetailPage({ genreMovie, genreTv }) {
                   Cast
                 </li>
                 <li onClick={(e) => handleActiveClass(e)}>More Like This</li>
-                {location.state.name && (
+                {location?.state?.name && (
                   <li onClick={(e) => handleActiveClass(e)}>Episodes</li>
                 )}
               </ul>
@@ -141,8 +143,8 @@ export default function DetailPage({ genreMovie, genreTv }) {
                 <Carousel
                   header={"Cast"}
                   fetchData={requestCast(
-                    location.state.title ? "movie" : "tv",
-                    location.state.id
+                    location?.state?.title ? "movie" : "tv",
+                    location?.state?.id
                   )}
                 />
               </div>
@@ -152,8 +154,8 @@ export default function DetailPage({ genreMovie, genreTv }) {
                 <Carousel
                   header={"More like this"}
                   fetchData={requestSimilar(
-                    location.state.title ? "movie" : "tv",
-                    location.state.id
+                    location?.state?.title ? "movie" : "tv",
+                    location?.state?.id
                   )}
                 />
               </div>
@@ -162,8 +164,8 @@ export default function DetailPage({ genreMovie, genreTv }) {
               <div className="detail-page-container__episodes">
                 <Carousel
                   header={"Episodes"}
-                  fetchData={requestEpisodes(location.state.id, 1)}
-                  id={location.state.id}
+                  fetchData={requestEpisodes(location?.state?.id, 1)}
+                  id={location?.state?.id}
                 />
               </div>
             )}
