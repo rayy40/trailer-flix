@@ -64,7 +64,7 @@ export default function Row({ title, fetchUrl, genreMovie, genreTv }) {
         </button>
         <div ref={carouselRef} className="row-outline__carousel--container">
           <div ref={activeRef} className="row-outline__carousel">
-            {data.data.results.map((item, id) => (
+            {data?.data?.results?.map((item, id) => (
               <div
                 onClick={() => {
                   window.matchMedia("(max-width: 1000px)").matches &&
